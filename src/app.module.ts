@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import dataSource from 'database/datasource';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forRootAsync({
+    useFactory: () => ({
+      ...dataSource.options
+    })
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
