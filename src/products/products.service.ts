@@ -1,12 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/products.dto';
+import { ReviewDto } from 'src/reviews/dto/review.dto';
+import { ReviewsService } from 'src/reviews/reviews.service';
 
 @Injectable()
 export class ProductsService {
-    constructor(@InjectRepository(Product) private productRepository: Repository<Product>) {}
+    constructor(
+        @InjectRepository(Product) private productRepository: Repository<Product>,
+        private readonly reviewsService: ReviewsService
+    ) {}
 
     async createProduct(createProductDto: CreateProductDto) {
         const product = this.productRepository.create(createProductDto)
@@ -38,5 +43,22 @@ export class ProductsService {
         return {
             product
         } 
+    }
+
+    async reviewProduct(id: string, reviewDto: ReviewDto) {
+        const product = await this.productRepository.findOne({
+            where: { id }
+        })
+
+        if(!product) {
+            throw new NotFoundException('Product not found')
+        }
+
+        const payload = {
+            ...reviewDto,
+            product
+        }
+
+        return this.reviewsService.reviewProduct(payload)
     }
 }

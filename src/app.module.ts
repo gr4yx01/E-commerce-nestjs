@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { CommonModule } from './common/common.module';
+import { ReviewsModule } from './reviews/reviews.module';
 import dbConfig from 'config/db.config';
 import aiConfig from 'config/ai.config';
 
@@ -31,7 +32,8 @@ import aiConfig from 'config/ai.config';
   }),
   ProductsModule,
   OrdersModule,
-  CommonModule
+  CommonModule,
+  ReviewsModule
   ],
   controllers: [AppController],
   providers: [AppService],

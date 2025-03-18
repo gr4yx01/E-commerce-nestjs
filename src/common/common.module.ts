@@ -6,6 +6,6 @@ import { PaginationService } from './pagination/pagination.service';
 @Module({
   controllers: [CommonController],
   providers: [CommonService, PaginationService],
-  exports: [PaginationService]
+  exports: [  ]
 })
 export class CommonModule {}

@@ -1,4 +1,5 @@
 import { Order } from "src/orders/entity/orders.entity";
+import { Review } from "src/reviews/entities/review.model";
 import { BaseEntityModel } from "src/shared/base-model.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
@@ -18,6 +19,9 @@ export class Product extends BaseEntityModel {
 
     @OneToMany(() => Order, (order) => order.product)
     orders: Order[]
+
+    @OneToMany(() => Review, (review) => review.product)
+    reviews: Review[]
 
     @Column('simple-json', {
         default: {},
