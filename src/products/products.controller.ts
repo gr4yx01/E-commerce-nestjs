@@ -1,13 +1,17 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/products.dto';
 import { CreateProductDocs, GetProductByIdDocs, GetProductsDocs } from './docs/products.docs';
 import { ReviewDto } from 'src/reviews/dto/review.dto';
+import { AuthGuard } from 'src/auth/guards/authentication.guard';
+import { AdminGuard } from 'src/auth/guards/authorization.guard';
 
+@UseGuards(AuthGuard)
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   @CreateProductDocs()
   createProduct(@Body() createProductDto: CreateProductDto) {

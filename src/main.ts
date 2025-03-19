@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new APIResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
 
-  const config = new DocumentBuilder().setTitle('E-commerce Practise API').setDescription('This API details the endpoints for a real world E-commerce application').setVersion('1.0').build()
+  const config = new DocumentBuilder().setTitle('E-commerce Practise API').setDescription('This API details the endpoints for a real world E-commerce application').setVersion('1.0').addBearerAuth().build()
 
   const documentFactory = () => SwaggerModule.createDocument(app, config)
 

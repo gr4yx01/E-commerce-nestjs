@@ -7,14 +7,17 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { CommonModule } from './common/common.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import dbConfig from 'config/db.config';
 import aiConfig from 'config/ai.config';
+import jwtConfig from 'config/jwt.config';
 
 @Module({
   imports: [
   ConfigModule.forRoot({
     isGlobal: true,
-    load: [dbConfig, aiConfig],
+    load: [dbConfig, aiConfig, jwtConfig],
     cache: true
   }),
   TypeOrmModule.forRootAsync({
@@ -33,7 +36,9 @@ import aiConfig from 'config/ai.config';
   ProductsModule,
   OrdersModule,
   CommonModule,
-  ReviewsModule
+  ReviewsModule,
+  UsersModule,
+  AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
